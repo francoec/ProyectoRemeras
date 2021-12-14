@@ -223,3 +223,13 @@ h3 {
     cursor: pointer;
     background-color: var(--secundarioOscuro);
 }
+.carrit {
+    background-color: var(--secundario);
+    border: none;
+    font-size: 2rem;
+    font-family: var(--fuentePrincipal);
+    padding: 1rem;
+    transition: background-color .3s ease;
+    grid-column: 1 / 3;
+    
+}
