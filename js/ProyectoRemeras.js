@@ -1,41 +1,38 @@
-let compra = parseInt(prompt("Ingrese El id de la remera que desea comprar \n1) ReactJs $1200 \n2) Js $3000\n3) Git $2500\n4) Html $2500\n0 Para terminar la compra"))
+class Remeras {
+    constructor(talle, cantidad) {
 
-let gracias = "gracias por elegirnos"
-
-let stockRemeras = [
-    {id: 1, nombre: "React", tipo: "remera", precio: 1200, talle: "L"},
-    {id: 2, nombre: "Js", tipo: "remera", precio: 3000, talle: "L"},
-    {id: 3, nombre: "Git", tipo: "remera", precio: 2500, talle: "M"},
-    {id: 4, nombre: "Html", tipo: "remera", precio: 2500, talle: "M"},
-]
-let carritoDeCompras = []
-
-document.getElementById("precio1").innerHTML = stockRemeras[0].precio
-document.getElementById("precio2").innerHTML = stockRemeras[1].precio
-document.getElementById("precio3").innerHTML = stockRemeras[2].precio
-document.getElementById("precio4").innerHTML = stockRemeras[3].precio
-
-
-while(compra != "0"){ 
-
-    function agregarAlCarrito() {
-
-        let productoAgregar = stockRemeras.filter((el) => el.id == compra)[0]
-        carritoDeCompras.push(productoAgregar)
-         console.log(carritoDeCompras)
-        actualizarCarrito()
-        
+        this.talle = talle;
+        this.cantidad = cantidad;
     }
-    agregarAlCarrito()
 
-    function actualizarCarrito() {
-    alert("cantidad de productos: " + carritoDeCompras.length)
-    let suma = carritoDeCompras.reduce((acc, el) => acc + el.precio, 0)
-
-    alert("La suma total de su Carrito es: $" + suma)
+    aumentarCarrito(nuevoCarrito){
+        this.carrito += nuevoCarrito
     }
-    
- 
-    compra = parseInt(prompt("Ingrese El id de la remera que desea comprar \n1) ReactJs $1200 \n2) Js $3000\n3) Git $2500\n4) Html $2500\n0 Para terminar la compra"))
 }
-document.getElementById("totalp").innerHTML = gracias
+
+
+
+let remeras = []
+
+let formProducto = document.getElementById('formProducto')
+let botonCarrito = document.getElementById('botonCarrito')
+let divProductos = document.getElementById('divProductos')
+
+formProducto.addEventListener('submit', (e) => {
+    e.preventDefault()
+    
+    
+    let datForm = new FormData(e.target)
+    let nuevoProducto = new Remeras(datForm.get("talle"), datForm.get("cantidad"))
+    
+    remeras.push(nuevoProducto)
+    localStorage.setItem('keyRemeras', JSON.stringify(remeras))
+    formProducto.reset()
+
+
+})
+
+botonCarrito.addEventListener('.click', () =>{
+    let productosEnStorage = JSON.parase(localStorage.getItem('keyRemeras'))
+    console.log(productosEnStorage)
+})
